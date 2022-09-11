@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F02DE7E028CE7EAD003B6D42 /* Passage.plist in Resources */ = {isa = PBXBuildFile; fileRef = F02DE7DF28CE7EAD003B6D42 /* Passage.plist */; };
+		F02DE7E328CE88B5003B6D42 /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = F02DE7E228CE88B5003B6D42 /* Passage */; };
 		F0512CF128C28D0A00911094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0512CF028C28D0A00911094 /* User.swift */; };
-		F0512CF428C29B6A00911094 /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = F0512CF328C29B6A00911094 /* Passage */; };
-		F0512CF628C29C0800911094 /* Passage.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0512CF528C29C0800911094 /* Passage.plist */; };
 		F088C0D828BBCC5700A004EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0D728BBCC5700A004EE /* AppDelegate.swift */; };
 		F088C0DA28BBCC5700A004EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0D928BBCC5700A004EE /* SceneDelegate.swift */; };
 		F088C0DC28BBCC5700A004EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0DB28BBCC5700A004EE /* LoginViewController.swift */; };
@@ -22,8 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F02DE7DF28CE7EAD003B6D42 /* Passage.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Passage.plist; sourceTree = "<group>"; };
 		F0512CF028C28D0A00911094 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		F0512CF528C29C0800911094 /* Passage.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Passage.plist; sourceTree = "<group>"; };
 		F0512CF728C2A64800911094 /* example-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "example-ios.entitlements"; sourceTree = "<group>"; };
 		F088C0D428BBCC5700A004EE /* example-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F088C0D728BBCC5700A004EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0512CF428C29B6A00911094 /* Passage in Frameworks */,
+				F02DE7E328CE88B5003B6D42 /* Passage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +77,7 @@
 				F088C0E028BBCC5800A004EE /* Assets.xcassets */,
 				F088C0E228BBCC5800A004EE /* LaunchScreen.storyboard */,
 				F088C0E528BBCC5800A004EE /* Info.plist */,
-				F0512CF528C29C0800911094 /* Passage.plist */,
+				F02DE7DF28CE7EAD003B6D42 /* Passage.plist */,
 			);
 			path = "example-ios";
 			sourceTree = "<group>";
@@ -111,7 +111,7 @@
 			);
 			name = "example-ios";
 			packageProductDependencies = (
-				F0512CF328C29B6A00911094 /* Passage */,
+				F02DE7E228CE88B5003B6D42 /* Passage */,
 			);
 			productName = "example-ios";
 			productReference = F088C0D428BBCC5700A004EE /* example-ios.app */;
@@ -142,7 +142,7 @@
 			);
 			mainGroup = F088C0CB28BBCC5700A004EE;
 			packageReferences = (
-				F0512CF228C29B6A00911094 /* XCRemoteSwiftPackageReference "passage-ios" */,
+				F02DE7E128CE88B5003B6D42 /* XCRemoteSwiftPackageReference "passage-ios" */,
 			);
 			productRefGroup = F088C0D528BBCC5700A004EE /* Products */;
 			projectDirPath = "";
@@ -159,9 +159,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F088C0E428BBCC5800A004EE /* LaunchScreen.storyboard in Resources */,
+				F02DE7E028CE7EAD003B6D42 /* Passage.plist in Resources */,
 				F088C0E128BBCC5800A004EE /* Assets.xcassets in Resources */,
 				F088C0DF28BBCC5700A004EE /* Main.storyboard in Resources */,
-				F0512CF628C29C0800911094 /* Passage.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,9 +402,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F0512CF228C29B6A00911094 /* XCRemoteSwiftPackageReference "passage-ios" */ = {
+		F02DE7E128CE88B5003B6D42 /* XCRemoteSwiftPackageReference "passage-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/passageidentity/passage-ios";
+			repositoryURL = "https://github.com/passageidentity/passage-ios#installation";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -413,9 +413,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F0512CF328C29B6A00911094 /* Passage */ = {
+		F02DE7E228CE88B5003B6D42 /* Passage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F0512CF228C29B6A00911094 /* XCRemoteSwiftPackageReference "passage-ios" */;
+			package = F02DE7E128CE88B5003B6D42 /* XCRemoteSwiftPackageReference "passage-ios" */;
 			productName = Passage;
 		};
 /* End XCSwiftPackageProductDependency section */
