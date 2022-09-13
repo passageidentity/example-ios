@@ -8,8 +8,9 @@ import UIKit
 
 final class WelcomeViewController: UIViewController {
     
-    var user: User? = nil
+    var token: String? = nil
     var showAddDeviceButton = false
+    var passageUser: PassageUserDetails? = nil
     
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addDeviceButton: UIButton!
@@ -37,9 +38,13 @@ final class WelcomeViewController: UIViewController {
     
     private func showUserDetails() {
         Task {
-            guard let user else { return }
-            emailLabel.text = user.email
-            guard let userDevices = try? await PassageAuth.listDevices(token: user.token) else { return }
+            guard let token else { return }
+            guard let passageUserDetails = try? await PassageAuth.getCurrentUser(token: token) else { return }
+            passageUser = passageUserDetails
+            if let passageUserEmail = passageUser?.email {
+                emailLabel.text = passageUserEmail
+            }
+            guard let userDevices = try? await PassageAuth.listDevices(token: token) else { return }
             showDeviceNames(userDevices: userDevices)
         }
     }
@@ -55,11 +60,13 @@ final class WelcomeViewController: UIViewController {
     }
     
     private func presentSavePasskeyViewController() {
-        guard let user else { return }
+        guard let passageUser else { return }
+        guard let token else { return }
         let savePasskeyViewController = storyboard?
             .instantiateViewController(withIdentifier: "SavePasskeyViewController") as! SavePasskeyViewController
         savePasskeyViewController.modalPresentationStyle = .popover
-        savePasskeyViewController.user = user
+        savePasskeyViewController.token = token
+        savePasskeyViewController.passageUser = passageUser
         present(savePasskeyViewController, animated: true)
     }
     

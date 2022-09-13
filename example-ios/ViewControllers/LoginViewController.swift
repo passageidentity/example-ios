@@ -76,6 +76,7 @@ final class LoginViewController: UIViewController {
     }
     
     private func handleRegister() {
+        
         Task {
             do {
                 let result = try await PassageAuth.register(identifier: email)
@@ -112,7 +113,7 @@ final class LoginViewController: UIViewController {
     private func pushWelcomeViewController(token: String) {
         let welcomeViewController = storyboard?
             .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-        welcomeViewController.user = User(email: email, token: token)
+        welcomeViewController.token = token
         navigationController?.pushViewController(welcomeViewController, animated: true)
     }
     

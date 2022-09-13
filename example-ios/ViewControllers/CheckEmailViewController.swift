@@ -47,7 +47,7 @@ final class CheckEmailViewController: UIViewController {
             let user = User(email: email, token: token)
             let welcomeViewController = storyboard?
                 .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-            welcomeViewController.user = user
+            welcomeViewController.token = token
             if !isShowingRegister, #available(iOS 16.0, *) {
                 // If existing user logs in for first time on this device using Magic Link, allow to add Passkey
                 welcomeViewController.showAddDeviceButton = true
