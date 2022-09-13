@@ -8,14 +8,15 @@ import UIKit
 
 final class SavePasskeyViewController: UIViewController {
     
-    var user: User? = nil
+    var token: String? = nil
+    var passageUser: PassageUserDetails? = nil
     
     @IBOutlet weak var emailLabel: UILabel!
     
     @IBAction func onPressSave(_ sender: Any) {
         Task {
-            guard let user, #available(iOS 16.0, *) else { return }
-            let _ = try? await PassageAuth.addDevice(token: user.token)
+            guard let token, #available(iOS 16.0, *) else { return }
+            let _ = try? await PassageAuth.addDevice(token: token)
             dismiss(animated: true)
         }
     }
@@ -26,7 +27,7 @@ final class SavePasskeyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailLabel.text = user?.email
+        emailLabel.text = passageUser?.email
     }
     
 }
