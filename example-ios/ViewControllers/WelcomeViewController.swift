@@ -9,14 +9,20 @@ import UIKit
 final class WelcomeViewController: UIViewController {
     
     var user: User? = nil
+    var showAddDeviceButton = false
     
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var addDeviceButton: UIButton!
     @IBOutlet weak var userDevicesStackView: UIStackView!
+    
+    @IBAction func onPressAddDevice(_ sender: Any) {
+        presentSavePasskeyViewController()
+    }
     
     @IBAction func onPressLogout(_ sender: Any) {
         Task {
             try? await PassageAuth.signOut()
-            navigationController?.popToRootViewController(animated: false)
+            let _ = navigationController?.popToRootViewController(animated: false)
         }
     }
     
@@ -25,6 +31,7 @@ final class WelcomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         emailLabel.text = ""
+        addDeviceButton.isHidden = !showAddDeviceButton
         showUserDetails()
     }
     
@@ -45,6 +52,15 @@ final class WelcomeViewController: UIViewController {
             label.font = label.font.withSize(14)
             userDevicesStackView.addArrangedSubview(label)
         }
+    }
+    
+    private func presentSavePasskeyViewController() {
+        guard let user else { return }
+        let savePasskeyViewController = storyboard?
+            .instantiateViewController(withIdentifier: "SavePasskeyViewController") as! SavePasskeyViewController
+        savePasskeyViewController.modalPresentationStyle = .popover
+        savePasskeyViewController.user = user
+        present(savePasskeyViewController, animated: true)
     }
     
 }

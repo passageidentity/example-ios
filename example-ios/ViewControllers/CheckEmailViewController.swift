@@ -45,27 +45,15 @@ final class CheckEmailViewController: UIViewController {
                     return
             }
             let user = User(email: email, token: token)
-            pushWelcomeViewController(user: user)
+            let welcomeViewController = storyboard?
+                .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+            welcomeViewController.user = user
             if !isShowingRegister, #available(iOS 16.0, *) {
-                // If existing user logs in for first time on this device using Magic Link, prompt to save Passkey
-                presentSavePasskeyViewController(user: user)
+                // If existing user logs in for first time on this device using Magic Link, allow to add Passkey
+                welcomeViewController.showAddDeviceButton = true
             }
+            navigationController?.pushViewController(welcomeViewController, animated: true)
         }
-    }
-    
-    private func pushWelcomeViewController(user: User) {
-        let welcomeViewController = storyboard?
-            .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-        welcomeViewController.user = user
-        navigationController?.pushViewController(welcomeViewController, animated: true)
-    }
-    
-    private func presentSavePasskeyViewController(user: User) {
-        let savePasskeyViewController = storyboard?
-            .instantiateViewController(withIdentifier: "SavePasskeyViewController") as! SavePasskeyViewController
-        savePasskeyViewController.modalPresentationStyle = .popover
-        savePasskeyViewController.user = user
-        navigationController?.topViewController?.present(savePasskeyViewController, animated: true)
     }
     
 }

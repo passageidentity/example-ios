@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bhd-xj-WTR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bhd-xj-WTR">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21169.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="tth-F6-Jog">
-                                <rect key="frame" x="24" y="112" width="342" height="268.33333333333331"/>
+                                <rect key="frame" x="24" y="115" width="342" height="268.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNU-bv-pPT">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="26.333333333333332"/>
@@ -134,7 +134,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="EvU-qW-YTX">
-                                <rect key="frame" x="24" y="68.000000000000014" width="342" height="244.33333333333337"/>
+                                <rect key="frame" x="24" y="71" width="342" height="319.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4R-Nh-HzH">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="26.333333333333332"/>
@@ -148,8 +148,18 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XM-e4-BkO">
+                                        <rect key="frame" x="0.0" y="131.33333333333334" width="342" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Add device">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPressAddDevice:" destination="INg-3q-LNw" eventType="touchUpInside" id="sjn-KG-p0x"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="127-KO-vRY">
-                                        <rect key="frame" x="0.0" y="131.33333333333334" width="342" height="17"/>
+                                        <rect key="frame" x="0.0" y="206.33333333333331" width="342" height="17"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User devices:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEY-hx-VyX">
                                                 <rect key="frame" x="0.0" y="0.0" width="342" height="17"/>
@@ -160,7 +170,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Por-hT-DEU">
-                                        <rect key="frame" x="0.0" y="192.33333333333331" width="342" height="52"/>
+                                        <rect key="frame" x="0.0" y="267.33333333333331" width="342" height="52"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="QsL-g1-iIo"/>
                                         </constraints>
@@ -185,6 +195,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addDeviceButton" destination="3XM-e4-BkO" id="aQt-FJ-eaa"/>
                         <outlet property="emailLabel" destination="Phz-HN-ySX" id="Mam-oz-0m7"/>
                         <outlet property="userDevicesStackView" destination="127-KO-vRY" id="Pa1-Q9-YPK"/>
                     </connections>
@@ -198,7 +209,7 @@
             <objects>
                 <navigationController id="Bhd-xj-WTR" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xl8-GS-26m">
-                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -218,7 +229,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="IA9-W3-RpD">
-                                <rect key="frame" x="24" y="67.999999999999986" width="342" height="197.66666666666663"/>
+                                <rect key="frame" x="24" y="70.999999999999986" width="342" height="197.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check email to login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duw-ZY-S1C">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="26.333333333333332"/>
@@ -290,7 +301,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="99B-mS-nJB">
-                                <rect key="frame" x="24" y="68" width="342" height="258.33333333333331"/>
+                                <rect key="frame" x="24" y="71" width="342" height="258.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save Passkey" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g4-bN-iup">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="26.333333333333332"/>
@@ -322,7 +333,7 @@
                                         <rect key="frame" x="0.0" y="227.33333333333331" width="342" height="31"/>
                                         <color key="tintColor" name="AccentColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Skip">
+                                        <buttonConfiguration key="configuration" style="plain" title="Dismiss">
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="14"/>
                                         </buttonConfiguration>
                                         <connections>
