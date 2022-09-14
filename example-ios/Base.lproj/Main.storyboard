@@ -42,7 +42,7 @@
                                                     <constraint firstAttribute="height" constant="48" id="Qw2-0M-s2x"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" textContentType="username"/>
                                                 <connections>
                                                     <action selector="onChangeTextField:" destination="BYZ-38-t0r" eventType="editingChanged" id="dtc-z9-q2Q"/>
                                                 </connections>
