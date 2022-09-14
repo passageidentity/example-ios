@@ -46,7 +46,30 @@ final class LoginViewController: UIViewController {
         isShowingRegister = !isShowingRegister
     }
     
+    
+    func onLoginSuccess(authResult: AuthResult) {
+        if let token = authResult.auth_token {
+            DispatchQueue.main.async {
+                self.pushWelcomeViewController(token: token)
+            }
+        }
+    }
+    
+    func onLoginError(error: Error) {
+        DispatchQueue.main.async {
+            self.displayError(message: "Error logging in with autofill")
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        if #available(iOS 16.0, *) {
+            guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                Task {
+                    try await PassageAuth.beginAutoFill(anchor: window, onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
+                }
+            }
+        }
         super.viewDidAppear(animated)
         isShowingRegister = false
         errorLabel.isHidden = true
