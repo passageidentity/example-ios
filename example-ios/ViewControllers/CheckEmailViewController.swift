@@ -10,6 +10,8 @@ final class CheckEmailViewController: UIViewController {
     
     var email: String? = nil
     var isShowingRegister = false
+    var magicLinkId: String? = nil
+    var pollingTimer: Timer? = nil
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var introLabel: UILabel!
@@ -37,23 +39,47 @@ final class CheckEmailViewController: UIViewController {
         introLabel.text = "\(isShowingRegister ? "" : "We didn't recognize this device. ")We've sent an email to"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        pollingTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            self?.checkMagicLinkStatus()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        pollingTimer?.invalidate()
+    }
+    
     func handleMagicLink(_ magicLink: String) {
         Task {
-            guard
-                let email,
-                let token = try? await PassageAuth.magicLinkActivate(userMagicLink: magicLink).auth_token else {
-                    return
+            guard let token = try? await PassageAuth.magicLinkActivate(userMagicLink: magicLink).auth_token else {
+                return
             }
-            let user = User(email: email, token: token)
-            let welcomeViewController = storyboard?
-                .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-            welcomeViewController.token = token
-            if !isShowingRegister, #available(iOS 16.0, *) {
-                // If existing user logs in for first time on this device using Magic Link, allow to add Passkey
-                welcomeViewController.showAddDeviceButton = true
-            }
-            navigationController?.pushViewController(welcomeViewController, animated: true)
+            pushWelcomeViewController(token: token)
         }
+    }
+    
+    private func checkMagicLinkStatus() {
+        guard let magicLinkId else { return }
+        Task {
+            guard let authResult = try? await PassageAuth.getMagicLinkStatus(id: magicLinkId),
+                  let token = authResult.auth_token else {
+                return
+            }
+            pushWelcomeViewController(token: token)
+        }
+    }
+    
+    private func pushWelcomeViewController(token: String) {
+        let welcomeViewController = storyboard?
+            .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+        welcomeViewController.token = token
+        if !isShowingRegister, #available(iOS 16.0, *) {
+            // If existing user logs in for first time on this device using Magic Link, allow to add Passkey
+            welcomeViewController.showAddDeviceButton = true
+        }
+        navigationController?.pushViewController(welcomeViewController, animated: true)
     }
     
 }
