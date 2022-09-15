@@ -83,8 +83,8 @@ final class LoginViewController: UIViewController {
                 let result = try await PassageAuth.login(identifier: email)
                 if let token = result.authResult?.auth_token {
                     pushWelcomeViewController(token: token)
-                } else if let _ = result.magicLink {
-                    pushCheckEmailViewController()
+                } else if let magicLink = result.magicLink {
+                    pushCheckEmailViewController(magicLinkId: magicLink.id)
                 } else {
                     displayError(message: "Error logging in")
                 }
@@ -105,8 +105,8 @@ final class LoginViewController: UIViewController {
                 let result = try await PassageAuth.register(identifier: email)
                 if let token = result.authResult?.auth_token {
                     pushWelcomeViewController(token: token)
-                } else if let _ = result.magicLink {
-                    pushCheckEmailViewController()
+                } else if let magicLink = result.magicLink {
+                    pushCheckEmailViewController(magicLinkId: magicLink.id)
                 } else {
                     displayError(message: "Error registering your account")
                 }
@@ -125,11 +125,12 @@ final class LoginViewController: UIViewController {
         errorLabel.isHidden = false
     }
     
-    private func pushCheckEmailViewController() {
+    private func pushCheckEmailViewController(magicLinkId: String) {
         let checkEmailViewController = storyboard?
             .instantiateViewController(withIdentifier: "CheckEmailViewController") as! CheckEmailViewController
         checkEmailViewController.email = email
         checkEmailViewController.isShowingRegister = isShowingRegister
+        checkEmailViewController.magicLinkId = magicLinkId
         navigationController?.pushViewController(checkEmailViewController, animated: true)
     }
     
