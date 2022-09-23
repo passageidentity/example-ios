@@ -16,7 +16,7 @@ final class SavePasskeyViewController: UIViewController {
     @IBAction func onPressSave(_ sender: Any) {
         Task {
             guard let token, #available(iOS 16.0, *) else { return }
-            let _ = try? await PassageAuth.addDevice(token: token)
+            try await PassageAuth.addDevice(token: token)
             dismiss(animated: true)
         }
     }
