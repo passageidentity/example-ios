@@ -63,10 +63,9 @@ final class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if #available(iOS 16.0, *) {
-            guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 Task {
-                    try await PassageAuth.beginAutoFill(anchor: window, onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
+                    try await PassageAuth.beginAutoFill(onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
                 }
             }
         }
