@@ -22,7 +22,6 @@ final class WelcomeViewController: UIViewController {
     
     @IBAction func onPressLogout(_ sender: Any) {
         Task {
-            try? await PassageAuth.signOut()
             let _ = navigationController?.popToRootViewController(animated: false)
         }
     }
