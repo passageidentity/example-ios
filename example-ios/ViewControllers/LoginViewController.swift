@@ -140,6 +140,8 @@ final class LoginViewController: UIViewController {
         let passcodeViewController = storyboard?
             .instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
         passcodeViewController.oneTimePasscodeId = oneTimePasscodeId
+        passcodeViewController.email = email
+        passcodeViewController.isShowingRegister = isShowingRegister
         navigationController?.pushViewController(passcodeViewController, animated: true)
     }
     

@@ -1,26 +1,53 @@
-//
-//  PasscodeViewController.swift
-//  example-ios
-//
-
 import Passage
 import UIKit
 
 final class PasscodeViewController: UIViewController {
     
+    var oneTimePasscodeId: String? = nil
+    var email: String? = nil
+    var isShowingRegister = false
+    
     @IBOutlet weak var textField: UITextField!
+    
     @IBAction func onPressButton(_ sender: Any) {
         guard let oneTimePasscodeId, let otp = textField.text else { return }
         Task {
             let result = try? await PassageAuth.oneTimePasscodeActivate(otp: otp, otpId: oneTimePasscodeId)
-            if let token = result?.authToken {
-                let ac = UIAlertController(title: "Passcode verified 😎", message: "Token: \(token)", preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: "Okay", style: .cancel))
-                present(ac, animated: true)
+            guard let token = result?.authToken else {
+                let alert = UIAlertController(title: "Invalid passcode", message: "Please try again.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+                return
             }
+            pushWelcomeViewController(token: token)
         }
     }
     
-    var oneTimePasscodeId: String? = nil
+    @IBAction func onPressResendButton(_ sender: Any) {
+        guard let email else { return }
+        Task {
+            if isShowingRegister {
+                oneTimePasscodeId = try? await PassageAuth.newRegisterOneTimePasscode(identifier: email).id
+            } else {
+                oneTimePasscodeId = try? await PassageAuth.newLoginOneTimePasscode(identifier: email).id
+            }
+            let alert = UIAlertController(title: "Passcode resent", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func pushWelcomeViewController(token: String) {
+        let welcomeViewController = storyboard?
+            .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+        welcomeViewController.token = token
+        if !isShowingRegister, #available(iOS 16.0, *) {
+            // If existing user logs in for first time on this device using OTP, allow to add Passkey
+            welcomeViewController.showAddDeviceButton = true
+        }
+        navigationController?.pushViewController(welcomeViewController, animated: true)
+    }
     
 }
