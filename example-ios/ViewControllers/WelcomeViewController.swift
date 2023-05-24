@@ -10,7 +10,7 @@ final class WelcomeViewController: UIViewController {
     
     var token: String? = nil
     var showAddDeviceButton = false
-    var passageUser: PassageUserDetails? = nil
+    var passageUser: PassageUserInfo? = nil
     
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addDeviceButton: UIButton!
@@ -51,7 +51,7 @@ final class WelcomeViewController: UIViewController {
     private func showDeviceNames(userDevices: [DeviceInfo]) {
         for device in userDevices {
             let label = UILabel()
-            label.text = device.friendly_name
+            label.text = device.friendlyName
             label.textAlignment = .center
             label.font = label.font.withSize(14)
             userDevicesStackView.addArrangedSubview(label)

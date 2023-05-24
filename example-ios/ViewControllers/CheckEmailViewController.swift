@@ -53,7 +53,7 @@ final class CheckEmailViewController: UIViewController {
     
     func handleMagicLink(_ magicLink: String) {
         Task {
-            guard let token = try? await PassageAuth.magicLinkActivate(userMagicLink: magicLink).auth_token else {
+            guard let token = try? await PassageAuth.magicLinkActivate(userMagicLink: magicLink).authToken else {
                 return
             }
             pushWelcomeViewController(token: token)
@@ -63,8 +63,7 @@ final class CheckEmailViewController: UIViewController {
     private func checkMagicLinkStatus() {
         guard let magicLinkId else { return }
         Task {
-            guard let authResult = try? await PassageAuth.getMagicLinkStatus(id: magicLinkId),
-                  let token = authResult.auth_token else {
+            guard let token = try? await PassageAuth.getMagicLinkStatus(id: magicLinkId).authToken else {
                 return
             }
             pushWelcomeViewController(token: token)
