@@ -48,10 +48,8 @@ final class LoginViewController: UIViewController {
     
     
     func onLoginSuccess(authResult: AuthResult) {
-        if let token = authResult.auth_token {
-            DispatchQueue.main.async {
-                self.pushWelcomeViewController(token: token)
-            }
+        DispatchQueue.main.async {
+            self.pushWelcomeViewController(token: authResult.authToken)
         }
     }
     
@@ -63,9 +61,10 @@ final class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if #available(iOS 16.0, *) {
+            guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 Task {
-                    try await PassageAuth.beginAutoFill(onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
+                    try await PassageAuth.beginAutoFill(anchor: window ,onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
                 }
             }
         }
@@ -80,10 +79,12 @@ final class LoginViewController: UIViewController {
         Task {
             do {
                 let result = try await PassageAuth.login(identifier: email)
-                if let token = result.authResult?.auth_token {
+                if let token = result.authResult?.authToken {
                     pushWelcomeViewController(token: token)
-                } else if let magicLink = result.magicLink {
+                } else if let magicLink = result.authFallbackResult as? MagicLink {
                     pushCheckEmailViewController(magicLinkId: magicLink.id)
+                } else if let oneTimePasscode = result.authFallbackResult as? OneTimePasscode {
+                    pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.id)
                 } else {
                     displayError(message: "Error logging in")
                 }
@@ -102,10 +103,12 @@ final class LoginViewController: UIViewController {
         Task {
             do {
                 let result = try await PassageAuth.register(identifier: email)
-                if let token = result.authResult?.auth_token {
+                if let token = result.authResult?.authToken {
                     pushWelcomeViewController(token: token)
-                } else if let magicLink = result.magicLink {
+                } else if let magicLink = result.authFallbackResult as? MagicLink {
                     pushCheckEmailViewController(magicLinkId: magicLink.id)
+                } else if let oneTimePasscode = result.authFallbackResult as? OneTimePasscode {
+                    pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.id)
                 } else {
                     displayError(message: "Error registering your account")
                 }
@@ -131,6 +134,13 @@ final class LoginViewController: UIViewController {
         checkEmailViewController.isShowingRegister = isShowingRegister
         checkEmailViewController.magicLinkId = magicLinkId
         navigationController?.pushViewController(checkEmailViewController, animated: true)
+    }
+    
+    private func pushPasscodeViewController(oneTimePasscodeId: String) {
+        let passcodeViewController = storyboard?
+            .instantiateViewController(withIdentifier: "PasscodeViewController") as! PasscodeViewController
+        passcodeViewController.oneTimePasscodeId = oneTimePasscodeId
+        navigationController?.pushViewController(passcodeViewController, animated: true)
     }
     
     private func pushWelcomeViewController(token: String) {
