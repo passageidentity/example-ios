@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF7F888A29E5EC8200015EB6 /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F888929E5EC8200015EB6 /* PasscodeViewController.swift */; };
+		DFB2534C2A1EDA4000DA0EFB /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = DFB2534B2A1EDA4000DA0EFB /* Passage */; };
 		F02DE7E028CE7EAD003B6D42 /* Passage.plist in Resources */ = {isa = PBXBuildFile; fileRef = F02DE7DF28CE7EAD003B6D42 /* Passage.plist */; };
-		F02DE7E328CE88B5003B6D42 /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = F02DE7E228CE88B5003B6D42 /* Passage */; };
 		F0512CF128C28D0A00911094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0512CF028C28D0A00911094 /* User.swift */; };
 		F088C0D828BBCC5700A004EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0D728BBCC5700A004EE /* AppDelegate.swift */; };
 		F088C0DA28BBCC5700A004EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0D928BBCC5700A004EE /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF7F888929E5EC8200015EB6 /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		F02DE7DF28CE7EAD003B6D42 /* Passage.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Passage.plist; sourceTree = "<group>"; };
 		F0512CF028C28D0A00911094 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F0512CF728C2A64800911094 /* example-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "example-ios.entitlements"; sourceTree = "<group>"; };
@@ -43,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F02DE7E328CE88B5003B6D42 /* Passage in Frameworks */,
+				DFB2534C2A1EDA4000DA0EFB /* Passage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +92,7 @@
 				F088C0ED28BBD76200A004EE /* WelcomeViewController.swift */,
 				F088C0F028BBDB9600A004EE /* SavePasskeyViewController.swift */,
 				F0512CF028C28D0A00911094 /* User.swift */,
+				DF7F888929E5EC8200015EB6 /* PasscodeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -111,7 +114,7 @@
 			);
 			name = "example-ios";
 			packageProductDependencies = (
-				F02DE7E228CE88B5003B6D42 /* Passage */,
+				DFB2534B2A1EDA4000DA0EFB /* Passage */,
 			);
 			productName = "example-ios";
 			productReference = F088C0D428BBCC5700A004EE /* example-ios.app */;
@@ -142,7 +145,7 @@
 			);
 			mainGroup = F088C0CB28BBCC5700A004EE;
 			packageReferences = (
-				F02DE7E128CE88B5003B6D42 /* XCRemoteSwiftPackageReference "passage-ios" */,
+				DFB2534A2A1EDA4000DA0EFB /* XCRemoteSwiftPackageReference "passage-ios" */,
 			);
 			productRefGroup = F088C0D528BBCC5700A004EE /* Products */;
 			projectDirPath = "";
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF7F888A29E5EC8200015EB6 /* PasscodeViewController.swift in Sources */,
 				F088C0DC28BBCC5700A004EE /* LoginViewController.swift in Sources */,
 				F088C0EE28BBD76200A004EE /* WelcomeViewController.swift in Sources */,
 				F088C0D828BBCC5700A004EE /* AppDelegate.swift in Sources */,
@@ -402,20 +406,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F02DE7E128CE88B5003B6D42 /* XCRemoteSwiftPackageReference "passage-ios" */ = {
+		DFB2534A2A1EDA4000DA0EFB /* XCRemoteSwiftPackageReference "passage-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/passageidentity/passage-ios#installation";
+			repositoryURL = "https://github.com/passageidentity/passage-ios";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F02DE7E228CE88B5003B6D42 /* Passage */ = {
+		DFB2534B2A1EDA4000DA0EFB /* Passage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F02DE7E128CE88B5003B6D42 /* XCRemoteSwiftPackageReference "passage-ios" */;
+			package = DFB2534A2A1EDA4000DA0EFB /* XCRemoteSwiftPackageReference "passage-ios" */;
 			productName = Passage;
 		};
 /* End XCSwiftPackageProductDependency section */
