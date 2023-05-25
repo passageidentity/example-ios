@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bhd-xj-WTR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bhd-xj-WTR">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -358,6 +358,93 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SFc-lf-pWX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="820" y="781"/>
+        </scene>
+        <!--Passcode View Controller-->
+        <scene sceneID="Urq-2M-Odb">
+            <objects>
+                <viewController storyboardIdentifier="PasscodeViewController" id="x3a-HE-odT" customClass="PasscodeViewController" customModule="example_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Aot-sH-uxz">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ywz-wa-Npq">
+                                <rect key="frame" x="32" y="79" width="326" height="282.33333333333331"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KS6-tM-keU">
+                                        <rect key="frame" x="0.0" y="0.0" width="326" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A one time code has been sent." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekx-EL-gQp">
+                                        <rect key="frame" x="0.0" y="54.333333333333343" width="326" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qjf-tF-5H2">
+                                        <rect key="frame" x="0.0" y="99.333333333333343" width="326" height="48"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="000000" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BBh-Ci-GTT">
+                                                <rect key="frame" x="103" y="0.0" width="120" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="hAB-Az-2Pk"/>
+                                                    <constraint firstAttribute="height" constant="48" id="hpU-lb-64M"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" textContentType="one-time-code"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="BBh-Ci-GTT" secondAttribute="bottom" id="0XH-mV-qzy"/>
+                                            <constraint firstItem="BBh-Ci-GTT" firstAttribute="centerX" secondItem="Qjf-tF-5H2" secondAttribute="centerX" id="4jU-1y-Tq5"/>
+                                            <constraint firstItem="BBh-Ci-GTT" firstAttribute="top" secondItem="Qjf-tF-5H2" secondAttribute="top" id="FfF-FY-L9J"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxa-uQ-C9d">
+                                        <rect key="frame" x="0.0" y="175.33333333333334" width="326" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="F8A-4T-kR5"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Continue" cornerStyle="capsule">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPressButton:" destination="x3a-HE-odT" eventType="touchUpInside" id="HwS-TH-bzS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2u4-Zq-82q">
+                                        <rect key="frame" x="0.0" y="251.33333333333331" width="326" height="31"/>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Resend code">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="14"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPressResendButton:" destination="x3a-HE-odT" eventType="touchUpInside" id="AsH-9R-Zf8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CRl-yb-8aO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ywz-wa-Npq" firstAttribute="leading" secondItem="CRl-yb-8aO" secondAttribute="leading" constant="32" id="bBw-gM-C6S"/>
+                            <constraint firstItem="CRl-yb-8aO" firstAttribute="trailing" secondItem="Ywz-wa-Npq" secondAttribute="trailing" constant="32" id="rSl-G3-q1M"/>
+                            <constraint firstItem="Ywz-wa-Npq" firstAttribute="top" secondItem="CRl-yb-8aO" secondAttribute="top" constant="32" id="tCd-us-OqF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="BBh-Ci-GTT" id="7vj-k8-Hy5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l6U-zh-vQd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="1549"/>
         </scene>
     </scenes>
     <resources>

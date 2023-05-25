@@ -9,7 +9,7 @@ import UIKit
 final class SavePasskeyViewController: UIViewController {
     
     var token: String? = nil
-    var passageUser: PassageUserDetails? = nil
+    var passageUser: PassageUserInfo? = nil
     
     @IBOutlet weak var emailLabel: UILabel!
     
