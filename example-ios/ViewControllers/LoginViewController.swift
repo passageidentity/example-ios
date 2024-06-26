@@ -59,65 +59,69 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if #available(iOS 16.0, *) {
-            guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                Task {
-                    try await PassageAuth.beginAutoFill(anchor: window ,onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
-                }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // If user has a valid token on device, skip login screen.
+        Task {
+            if let token = try? await passage.getAuthToken() {
+                pushWelcomeViewController(token: token)
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isShowingRegister = false
         errorLabel.isHidden = true
         navigationController?.navigationBar.isHidden = false
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            Task {
+                try await passage.beginAutoFill(anchor: window ,onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
+            }
+        }
     }
 
     private func handleLogin() {
         Task {
             do {
-                let result = try await PassageAuth.login(identifier: email)
-                if let token = result.authResult?.authToken {
-                    pushWelcomeViewController(token: token)
-                } else if let magicLink = result.authFallbackResult as? MagicLink {
-                    pushCheckEmailViewController(magicLinkId: magicLink.id)
-                } else if let oneTimePasscode = result.authFallbackResult as? OneTimePasscode {
-                    pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.id)
+                // Try logging in with passkey.
+                let authResult = try await passage.loginWithPasskey(identifier: email)
+                pushWelcomeViewController(token: authResult.authToken)
+            } catch LoginWithPasskeyError.canceled {
+                // User canceled passkey UX, do nothing.
+            } catch LoginWithPasskeyError.userDoesNotExist {
+                displayError(message: "Account not recognized")
+            } catch {
+                // If something goes wrong with passkey login, try One-Time Passcode login instead.
+                if let otp = try? await passage.newLoginOneTimePasscode(identifier: email) {
+                    pushPasscodeViewController(oneTimePasscodeId: otp.id)
                 } else {
+                    print(error)
+                    // If OTP login fails too, show generic error message.
                     displayError(message: "Error logging in")
                 }
-            } catch PassageError.userDoesNotExist {
-                displayError(message: "Account not recognized")
-            } catch PassageASAuthorizationError.canceled {
-                // User cancelled, do nothing.
-            } catch {
-                displayError(message: "Error logging in")
             }
         }
     }
     
     private func handleRegister() {
-        
         Task {
             do {
-                let result = try await PassageAuth.register(identifier: email)
-                if let token = result.authResult?.authToken {
-                    pushWelcomeViewController(token: token)
-                } else if let magicLink = result.authFallbackResult as? MagicLink {
-                    pushCheckEmailViewController(magicLinkId: magicLink.id)
-                } else if let oneTimePasscode = result.authFallbackResult as? OneTimePasscode {
-                    pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.id)
+                let authResult = try await passage.registerWithPasskey(identifier: email)
+                pushWelcomeViewController(token: authResult.authToken)
+            } catch RegisterWithPasskeyError.canceled {
+                // User cancelled, do nothing.
+            } catch RegisterWithPasskeyError.userAlreadyExists {
+                displayError(message: "Account already exists")
+            } catch {
+                // If something goes wrong with passkey registration, try One-Time Passcode registration instead.
+                if let otp = try? await passage.newRegisterOneTimePasscode(identifier: email) {
+                    pushPasscodeViewController(oneTimePasscodeId: otp.id)
                 } else {
                     displayError(message: "Error registering your account")
                 }
-            } catch PassageError.userAlreadyExists {
-                displayError(message: "Account already exists")
-            } catch PassageASAuthorizationError.canceled {
-                // User cancelled, do nothing.
-            } catch {
-                displayError(message: "Error registering your account")
             }
         }
     }

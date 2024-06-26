@@ -3,7 +3,10 @@
 //  example-ios
 //
 
+import Passage
 import UIKit
+
+var passage = PassageAuth(appId: "YOUR_PASSAGE_APP_ID")
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
