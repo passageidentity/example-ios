@@ -120,6 +120,8 @@ final class LoginViewController: UIViewController {
                 if let otp = try? await passage.newRegisterOneTimePasscode(identifier: email) {
                     pushPasscodeViewController(oneTimePasscodeId: otp.id)
                 } else {
+                    print(error)
+                    // If OTP registration fails too, show generic error message.
                     displayError(message: "Error registering your account")
                 }
             }
