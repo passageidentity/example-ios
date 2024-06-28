@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bhd-xj-WTR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bhd-xj-WTR">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="tth-F6-Jog">
-                                <rect key="frame" x="24" y="115" width="342" height="268.33333333333331"/>
+                                <rect key="frame" x="24" y="114.99999999999997" width="342" height="408.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNU-bv-pPT">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="26.333333333333332"/>
@@ -55,22 +55,50 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83M-c3-fDS">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83M-c3-fDS">
                                         <rect key="frame" x="0.0" y="148.33333333333331" width="342" height="52"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="cZV-4E-GTF"/>
                                         </constraints>
                                         <color key="tintColor" name="AccentColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Continue" cornerStyle="capsule">
+                                        <buttonConfiguration key="configuration" style="filled" title="Continue with passkey" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="onPressContinue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O16-V1-su0"/>
+                                            <action selector="onPressPasskeyButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DAd-Bf-iwy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwx-Bg-43z">
+                                        <rect key="frame" x="0.0" y="218.33333333333331" width="342" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="KAX-TQ-lbu"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Continue with One-Time Passcode" cornerStyle="capsule">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPressOTPButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gQ2-Cx-lfp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVl-qD-38y">
+                                        <rect key="frame" x="0.0" y="288.33333333333331" width="342" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="KoW-Mi-Hgv"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Continue with Magic Link" cornerStyle="capsule">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPressMagicLinkButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LSz-mZ-RP5"/>
                                         </connections>
                                     </button>
                                     <view contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="pis-cy-c5Y">
-                                        <rect key="frame" x="0.0" y="218.33333333333331" width="342" height="50"/>
+                                        <rect key="frame" x="0.0" y="358.33333333333331" width="342" height="50"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="8Rc-Iw-vOe">
                                                 <rect key="frame" x="64.333333333333329" y="0.0" width="213.66666666666669" height="50"/>
@@ -114,7 +142,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="6W5-01-TcA"/>
                     <connections>
-                        <outlet property="ContinueButton" destination="83M-c3-fDS" id="Zjl-EJ-FSG"/>
                         <outlet property="ErrorLabel" destination="qIc-Ci-hpc" id="2EW-Ut-cAr"/>
                         <outlet property="QuestionLabel" destination="OhL-88-7Ru" id="wWO-gs-rsW"/>
                         <outlet property="TitleLabel" destination="BNU-bv-pPT" id="ePN-5t-PK8"/>
@@ -455,7 +482,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

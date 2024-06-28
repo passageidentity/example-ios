@@ -19,45 +19,8 @@ final class LoginViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var switchButton: UIButton!
-
-    @IBAction func onPressContinue(_ sender: Any) {
-        view.endEditing(true)
-        if isShowingRegister {
-            handleRegister()
-        } else {
-            handleLogin()
-        }
-    }
-    
-    @IBAction func onChangeTextField(_ sender: UITextField) {
-        email = sender.text ?? ""
-        let isValidEmail = email.range(
-            of: #"^\S+@\S+\.\S+$"#,
-            options: .regularExpression
-        ) != nil
-        continueButton.isEnabled = isValidEmail
-        errorLabel.isHidden = true
-    }
-    
-    @IBAction func onPressSwitch(_ sender: Any) {
-        isShowingRegister = !isShowingRegister
-    }
-    
-    
-    func onLoginSuccess(authResult: AuthResult) {
-        DispatchQueue.main.async {
-            self.pushWelcomeViewController(token: authResult.authToken)
-        }
-    }
-    
-    func onLoginError(error: Error) {
-        DispatchQueue.main.async {
-            self.displayError(message: "Error logging in with autofill")
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,53 +41,80 @@ final class LoginViewController: UIViewController {
         guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             Task {
-                try await passage.beginAutoFill(anchor: window ,onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
+                try await passage.beginAutoFill(anchor: window, onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
             }
         }
     }
 
-    private func handleLogin() {
+    @IBAction func onPressPasskeyButton(_ sender: Any) {
+        view.endEditing(true)
         Task {
             do {
-                // Try logging in with passkey.
-                let authResult = try await passage.loginWithPasskey(identifier: email)
+                let authResult = isShowingRegister ?
+                    try await passage.registerWithPasskey(identifier: email) :
+                    try await passage.loginWithPasskey(identifier: email)
                 pushWelcomeViewController(token: authResult.authToken)
+            } catch RegisterWithPasskeyError.canceled {
+                // User cancelled passkey creation UX, do nothing.
+            } catch RegisterWithPasskeyError.userAlreadyExists {
+                displayError(message: "Account already exists")
             } catch LoginWithPasskeyError.canceled {
-                // User canceled passkey UX, do nothing.
+                // User canceled passkey assertion UX, do nothing.
             } catch LoginWithPasskeyError.userDoesNotExist {
                 displayError(message: "Account not recognized")
             } catch {
-                // If something goes wrong with passkey login, try One-Time Passcode login instead.
-                if let otp = try? await passage.newLoginOneTimePasscode(identifier: email) {
-                    pushPasscodeViewController(oneTimePasscodeId: otp.id)
-                } else {
-                    print(error)
-                    // If OTP login fails too, show generic error message.
-                    displayError(message: "Error logging in")
-                }
+                displayError(message: "Error authenticating with passkey.")
             }
         }
     }
     
-    private func handleRegister() {
+    @IBAction func onPressOTPButton(_ sender: Any) {
+        view.endEditing(true)
         Task {
             do {
-                let authResult = try await passage.registerWithPasskey(identifier: email)
-                pushWelcomeViewController(token: authResult.authToken)
-            } catch RegisterWithPasskeyError.canceled {
-                // User cancelled, do nothing.
-            } catch RegisterWithPasskeyError.userAlreadyExists {
-                displayError(message: "Account already exists")
+                let oneTimePasscode = isShowingRegister ?
+                    try await passage.newRegisterOneTimePasscode(identifier: email) :
+                    try await passage.newLoginOneTimePasscode(identifier: email)
+                pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.id)
             } catch {
-                // If something goes wrong with passkey registration, try One-Time Passcode registration instead.
-                if let otp = try? await passage.newRegisterOneTimePasscode(identifier: email) {
-                    pushPasscodeViewController(oneTimePasscodeId: otp.id)
-                } else {
-                    print(error)
-                    // If OTP registration fails too, show generic error message.
-                    displayError(message: "Error registering your account")
-                }
+                displayError(message: "Error authenticating with One-Time Passcode")
             }
+        }
+    }
+    
+    @IBAction func onPressMagicLinkButton(_ sender: Any) {
+        view.endEditing(true)
+        Task {
+            do {
+                let magicLink = isShowingRegister ?
+                    try await passage.newRegisterMagicLink(identifier: email) :
+                    try await passage.newLoginMagicLink(identifier: email)
+                pushCheckEmailViewController(magicLinkId: magicLink.id)
+            } catch {
+                displayError(message: "Error authenticating with Magic Link")
+            }
+        }
+    }
+    
+    @IBAction func onChangeTextField(_ sender: UITextField) {
+        email = sender.text ?? ""
+        errorLabel.isHidden = true
+    }
+    
+    @IBAction func onPressSwitch(_ sender: Any) {
+        isShowingRegister = !isShowingRegister
+    }
+    
+    
+    func onLoginSuccess(authResult: AuthResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.pushWelcomeViewController(token: authResult.authToken)
+        }
+    }
+    
+    func onLoginError(error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.displayError(message: "Error logging in with autofill")
         }
     }
     
