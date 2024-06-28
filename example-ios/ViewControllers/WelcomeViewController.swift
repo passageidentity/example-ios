@@ -9,7 +9,6 @@ import UIKit
 final class WelcomeViewController: UIViewController {
     
     var token: String? = nil
-    var showAddDeviceButton = false
     var passageUser: PassageUserInfo? = nil
     
     @IBOutlet weak var emailLabel: UILabel!
@@ -31,19 +30,17 @@ final class WelcomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         emailLabel.text = ""
-        addDeviceButton.isHidden = !showAddDeviceButton
         showUserDetails()
     }
     
     private func showUserDetails() {
         Task {
-            guard let token else { return }
-            guard let passageUserDetails = try? await PassageAuth.getCurrentUser(token: token) else { return }
+            guard let passageUserDetails = try? await passage.getCurrentUser() else { return }
             passageUser = passageUserDetails
             if let passageUserEmail = passageUser?.email {
                 emailLabel.text = passageUserEmail
             }
-            guard let userDevices = try? await PassageAuth.listDevices(token: token) else { return }
+            guard let userDevices = try? await passage.listDevices() else { return }
             showDeviceNames(userDevices: userDevices)
         }
     }

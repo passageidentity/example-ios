@@ -21,9 +21,9 @@ final class CheckEmailViewController: UIViewController {
         guard let email else { return }
         Task {
             if isShowingRegister {
-                let _ = try? await PassageAuth.newRegisterMagicLink(identifier: email)
+                let _ = try? await passage.newRegisterMagicLink(identifier: email)
             } else {
-                let _ = try? await PassageAuth.loginWithMagicLink(identifier: email)
+                let _ = try? await passage.loginWithMagicLink(identifier: email)
             }
             let alert = UIAlertController(title: "Email resent", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
@@ -53,7 +53,7 @@ final class CheckEmailViewController: UIViewController {
     
     func handleMagicLink(_ magicLink: String) {
         Task {
-            guard let token = try? await PassageAuth.magicLinkActivate(userMagicLink: magicLink).authToken else {
+            guard let token = try? await passage.magicLinkActivate(userMagicLink: magicLink).authToken else {
                 return
             }
             pushWelcomeViewController(token: token)
@@ -63,7 +63,7 @@ final class CheckEmailViewController: UIViewController {
     private func checkMagicLinkStatus() {
         guard let magicLinkId else { return }
         Task {
-            guard let token = try? await PassageAuth.getMagicLinkStatus(id: magicLinkId).authToken else {
+            guard let token = try? await passage.getMagicLinkStatus(id: magicLinkId).authToken else {
                 return
             }
             pushWelcomeViewController(token: token)
@@ -74,10 +74,6 @@ final class CheckEmailViewController: UIViewController {
         let welcomeViewController = storyboard?
             .instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
         welcomeViewController.token = token
-        if !isShowingRegister, #available(iOS 16.0, *) {
-            // If existing user logs in for first time on this device using Magic Link, allow to add Passkey
-            welcomeViewController.showAddDeviceButton = true
-        }
         navigationController?.pushViewController(welcomeViewController, animated: true)
     }
     
