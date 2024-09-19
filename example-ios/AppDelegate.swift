@@ -6,7 +6,7 @@
 import Passage
 import UIKit
 
-var passage = PassageAuth(appId: "YOUR_PASSAGE_APP_ID")
+var passage = Passage(appId: "YOUR_PASSAGE_APP_ID")
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

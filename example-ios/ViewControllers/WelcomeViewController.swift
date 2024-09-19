@@ -9,7 +9,7 @@ import UIKit
 final class WelcomeViewController: UIViewController {
     
     var token: String? = nil
-    var passageUser: PassageUserInfo? = nil
+    var passageUser: CurrentUser?
     
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addDeviceButton: UIButton!
@@ -21,6 +21,12 @@ final class WelcomeViewController: UIViewController {
     
     @IBAction func onPressLogout(_ sender: Any) {
         Task {
+            do {
+                try await passage.currentUser.logOut()
+            } catch {
+                print(error)
+            }
+            
             let _ = navigationController?.popToRootViewController(animated: false)
         }
     }
@@ -35,20 +41,20 @@ final class WelcomeViewController: UIViewController {
     
     private func showUserDetails() {
         Task {
-            guard let passageUserDetails = try? await passage.getCurrentUser() else { return }
+            guard let passageUserDetails = try? await passage.currentUser.userInfo() else { return }
             passageUser = passageUserDetails
             if let passageUserEmail = passageUser?.email {
                 emailLabel.text = passageUserEmail
             }
-            guard let userDevices = try? await passage.listDevices() else { return }
-            showDeviceNames(userDevices: userDevices)
+            guard let userPasskeys = try? await passage.currentUser.passkeys() else { return }
+            showPasskeyNames(userPasskeys: userPasskeys)
         }
     }
     
-    private func showDeviceNames(userDevices: [DeviceInfo]) {
-        for device in userDevices {
+    private func showPasskeyNames(userPasskeys: [Passkey]) {
+        for passkey in userPasskeys {
             let label = UILabel()
-            label.text = device.friendlyName
+            label.text = passkey.friendlyName
             label.textAlignment = .center
             label.font = label.font.withSize(14)
             userDevicesStackView.addArrangedSubview(label)

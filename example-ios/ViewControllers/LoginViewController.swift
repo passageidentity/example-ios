@@ -26,7 +26,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         // If user has a valid token on device, skip login screen.
         Task {
-            if let token = try? await passage.getAuthToken() {
+            if let token = try? await passage.tokenStore.getValidAuthToken() {
                 pushWelcomeViewController(token: token)
             }
         }
@@ -38,12 +38,6 @@ final class LoginViewController: UIViewController {
         errorLabel.isHidden = true
         navigationController?.navigationBar.isHidden = false
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        guard let window = self.view.window else { fatalError("The view was not in the app's view hierarchy!") }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            Task {
-                try await passage.beginAutoFill(anchor: window, onSuccess: self.onLoginSuccess, onError: self.onLoginError, onCancel: nil)
-            }
-        }
     }
 
     @IBAction func onPressPasskeyButton(_ sender: Any) {
@@ -51,16 +45,14 @@ final class LoginViewController: UIViewController {
         Task {
             do {
                 let authResult = isShowingRegister ?
-                    try await passage.registerWithPasskey(identifier: email) :
-                    try await passage.loginWithPasskey(identifier: email)
+                    try await passage.passkey.register(identifier: email) :
+                    try await passage.passkey.login(identifier: email)
                 pushWelcomeViewController(token: authResult.authToken)
-            } catch RegisterWithPasskeyError.canceled {
+            } catch PassagePasskeyError.canceled {
                 // User cancelled passkey creation UX, do nothing.
-            } catch RegisterWithPasskeyError.userAlreadyExists {
+            } catch PassagePasskeyError.userAlreadyExists {
                 displayError(message: "Account already exists")
-            } catch LoginWithPasskeyError.canceled {
-                // User canceled passkey assertion UX, do nothing.
-            } catch LoginWithPasskeyError.userDoesNotExist {
+            } catch PassagePasskeyError.userDoesNotExist {
                 displayError(message: "Account not recognized")
             } catch {
                 displayError(message: "Error authenticating with passkey.")
@@ -73,9 +65,9 @@ final class LoginViewController: UIViewController {
         Task {
             do {
                 let oneTimePasscode = isShowingRegister ?
-                    try await passage.newRegisterOneTimePasscode(identifier: email) :
-                    try await passage.newLoginOneTimePasscode(identifier: email)
-                pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.id)
+                    try await passage.oneTimePasscode.register(identifier: email) :
+                    try await passage.oneTimePasscode.login(identifier: email)
+                pushPasscodeViewController(oneTimePasscodeId: oneTimePasscode.otpId)
             } catch {
                 displayError(message: "Error authenticating with One-Time Passcode")
             }
@@ -87,8 +79,8 @@ final class LoginViewController: UIViewController {
         Task {
             do {
                 let magicLink = isShowingRegister ?
-                    try await passage.newRegisterMagicLink(identifier: email) :
-                    try await passage.newLoginMagicLink(identifier: email)
+                    try await passage.magicLink.register(identifier: email) :
+                    try await passage.magicLink.login(identifier: email)
                 pushCheckEmailViewController(magicLinkId: magicLink.id)
             } catch {
                 displayError(message: "Error authenticating with Magic Link")

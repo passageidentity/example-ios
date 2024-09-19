@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DF1EC2A42C2F2646005E13D8 /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = DF1EC2A32C2F2646005E13D8 /* Passage */; };
+		DF7505142C9C8C7600E2655E /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = DF7505132C9C8C7600E2655E /* Passage */; };
 		DF7F888A29E5EC8200015EB6 /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F888929E5EC8200015EB6 /* PasscodeViewController.swift */; };
+		DFAA9D4E2C9C9547002AD494 /* Passage.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFAA9D4D2C9C9547002AD494 /* Passage.plist */; };
+		DFD41B6F2C35EC68001D2024 /* Passage in Frameworks */ = {isa = PBXBuildFile; productRef = DFD41B6E2C35EC68001D2024 /* Passage */; };
 		F0512CF128C28D0A00911094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0512CF028C28D0A00911094 /* User.swift */; };
 		F088C0D828BBCC5700A004EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0D728BBCC5700A004EE /* AppDelegate.swift */; };
 		F088C0DA28BBCC5700A004EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F088C0D928BBCC5700A004EE /* SceneDelegate.swift */; };
@@ -23,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		DF7F888929E5EC8200015EB6 /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
+		DFAA9D4D2C9C9547002AD494 /* Passage.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Passage.plist; sourceTree = "<group>"; };
 		F0512CF028C28D0A00911094 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F0512CF728C2A64800911094 /* example-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "example-ios.entitlements"; sourceTree = "<group>"; };
 		F088C0D428BBCC5700A004EE /* example-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,7 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF1EC2A42C2F2646005E13D8 /* Passage in Frameworks */,
+				DFD41B6F2C35EC68001D2024 /* Passage in Frameworks */,
+				DF7505142C9C8C7600E2655E /* Passage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +89,7 @@
 				F088C0E028BBCC5800A004EE /* Assets.xcassets */,
 				F088C0E228BBCC5800A004EE /* LaunchScreen.storyboard */,
 				F088C0E528BBCC5800A004EE /* Info.plist */,
+				DFAA9D4D2C9C9547002AD494 /* Passage.plist */,
 			);
 			path = "example-ios";
 			sourceTree = "<group>";
@@ -119,7 +124,8 @@
 			);
 			name = "example-ios";
 			packageProductDependencies = (
-				DF1EC2A32C2F2646005E13D8 /* Passage */,
+				DFD41B6E2C35EC68001D2024 /* Passage */,
+				DF7505132C9C8C7600E2655E /* Passage */,
 			);
 			productName = "example-ios";
 			productReference = F088C0D428BBCC5700A004EE /* example-ios.app */;
@@ -150,7 +156,7 @@
 			);
 			mainGroup = F088C0CB28BBCC5700A004EE;
 			packageReferences = (
-				DF1EC2A22C2F2646005E13D8 /* XCRemoteSwiftPackageReference "passage-ios" */,
+				DF7505122C9C8C7600E2655E /* XCRemoteSwiftPackageReference "passage-swift" */,
 			);
 			productRefGroup = F088C0D528BBCC5700A004EE /* Products */;
 			projectDirPath = "";
@@ -169,6 +175,7 @@
 				F088C0E428BBCC5800A004EE /* LaunchScreen.storyboard in Resources */,
 				F088C0E128BBCC5800A004EE /* Assets.xcassets in Resources */,
 				F088C0DF28BBCC5700A004EE /* Main.storyboard in Resources */,
+				DFAA9D4E2C9C9547002AD494 /* Passage.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +341,7 @@
 				CODE_SIGN_ENTITLEMENTS = "example-ios/example-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LKQWMG6BWA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "example-ios/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -348,7 +355,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.example-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "id.passage.example-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -364,7 +371,7 @@
 				CODE_SIGN_ENTITLEMENTS = "example-ios/example-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LKQWMG6BWA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "example-ios/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -378,7 +385,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.example-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "id.passage.example-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -410,20 +417,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DF1EC2A22C2F2646005E13D8 /* XCRemoteSwiftPackageReference "passage-ios" */ = {
+		DF7505122C9C8C7600E2655E /* XCRemoteSwiftPackageReference "passage-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/passageidentity/passage-ios";
+			repositoryURL = "https://github.com/passageidentity/passage-swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF1EC2A32C2F2646005E13D8 /* Passage */ = {
+		DF7505132C9C8C7600E2655E /* Passage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DF1EC2A22C2F2646005E13D8 /* XCRemoteSwiftPackageReference "passage-ios" */;
+			package = DF7505122C9C8C7600E2655E /* XCRemoteSwiftPackageReference "passage-swift" */;
+			productName = Passage;
+		};
+		DFD41B6E2C35EC68001D2024 /* Passage */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Passage;
 		};
 /* End XCSwiftPackageProductDependency section */
