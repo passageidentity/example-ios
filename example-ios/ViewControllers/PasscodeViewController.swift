@@ -12,7 +12,7 @@ final class PasscodeViewController: UIViewController {
     @IBAction func onPressButton(_ sender: Any) {
         guard let oneTimePasscodeId, let otp = textField.text else { return }
         Task {
-            let result = try? await passage.oneTimePasscodeActivate(otp: otp, otpId: oneTimePasscodeId)
+            let result = try? await passage.oneTimePasscode.activate(otp: otp, id: oneTimePasscodeId)
             guard let token = result?.authToken else {
                 let alert = UIAlertController(title: "Invalid passcode", message: "Please try again.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Okay", style: .default, handler: nil)
@@ -28,9 +28,9 @@ final class PasscodeViewController: UIViewController {
         guard let email else { return }
         Task {
             if isShowingRegister {
-                oneTimePasscodeId = try? await passage.newRegisterOneTimePasscode(identifier: email).id
+                oneTimePasscodeId = try? await passage.oneTimePasscode.register(identifier: email).otpId
             } else {
-                oneTimePasscodeId = try? await passage.newLoginOneTimePasscode(identifier: email).id
+                oneTimePasscodeId = try? await passage.oneTimePasscode.login(identifier: email).otpId
             }
             let alert = UIAlertController(title: "Passcode resent", message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "Okay", style: .default, handler: nil)

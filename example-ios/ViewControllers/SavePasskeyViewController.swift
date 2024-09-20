@@ -9,13 +9,13 @@ import UIKit
 final class SavePasskeyViewController: UIViewController {
     
     var token: String? = nil
-    var passageUser: PassageUserInfo? = nil
+    var passageUser: CurrentUser? = nil
     
     @IBOutlet weak var emailLabel: UILabel!
     
     @IBAction func onPressSave(_ sender: Any) {
         Task {
-            try await passage.addDevice()
+            try await passage.currentUser.addPasskey()
             dismiss(animated: true)
         }
     }
